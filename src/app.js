@@ -60,8 +60,15 @@ app.use('/api/users', userRoutes);
 app.use('/api/records', recordRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
-// Swagger documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+// Swagger documentation - make host dynamic
+app.use('/api-docs', swaggerUi.serve, (req, res, next) => {
+  const host = req.get('host');
+  const updatedSwaggerDoc = {
+    ...swaggerDoc,
+    host: host || 'localhost:5000',
+  };
+  swaggerUi.setup(updatedSwaggerDoc)(req, res, next);
+});
 
 // Root route
 app.get('/', (req, res) => {

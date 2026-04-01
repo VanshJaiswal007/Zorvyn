@@ -8,7 +8,7 @@ const swaggerDoc = {
       name: 'Finance Team',
     },
   },
-  host: process.env.NODE_ENV === 'production' ? 'zorvyn-production.up.railway.app' : 'localhost:5000',
+  host: process.env.RAILWAY_DOMAIN || 'localhost:5000',
   basePath: '/api',
   schemes: ['https', 'http'],
   securityDefinitions: {
